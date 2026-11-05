@@ -1,0 +1,7 @@
+{
+	"Name": "orator-file-service",
+	"Version": "1.0.0",
+	"Description": "Reusable Orator file service: HTTP Range byte serving with a host-supplied resolver seam, plus retold-sharp (libvips) image derivatives and Deep Zoom (DZI) tile pyramids.",
+	"GeneratedAt": "2026-11-02T16:06:55.770Z",
+	"GitCommit": "0c2cc22"
+}

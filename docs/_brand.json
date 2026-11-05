@@ -1,0 +1,18 @@
+{
+	"Hash": "orator-file-service",
+	"Name": "Orator File Service",
+	"Tagline": "Reusable Orator byte + tile serving — HTTP Range, a resolver seam, and libvips DZI tiles.",
+	"Palette": "mix",
+	"Icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\"><path d=\"M 24 2 H 72 Q 94 2 94 24 V 72 Q 94 94 72 94 H 24 Q 2 94 2 72 V 24 Q 2 2 24 2 Z\" fill=\"#0F766E\"/><text x=\"48\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\" font-size=\"26\" font-weight=\"700\" fill=\"#ffffff\" letter-spacing=\"-1\">OFS</text></svg>",
+	"IconType": "svg",
+	"Favicon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\"><path d=\"M 24 2 H 72 Q 94 2 94 24 V 72 Q 94 94 72 94 H 24 Q 2 94 2 72 V 24 Q 2 2 24 2 Z\" fill=\"#0F766E\"/><text x=\"48\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\" font-size=\"60\" font-weight=\"800\" fill=\"#ffffff\" letter-spacing=\"-1\">O</text></svg>",
+	"FaviconDark": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\"><path d=\"M 24 2 H 72 Q 94 2 94 24 V 72 Q 94 94 72 94 H 24 Q 2 94 2 72 V 24 Q 2 2 24 2 Z\" fill=\"#4FB3A8\"/><text x=\"48\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\" font-size=\"60\" font-weight=\"800\" fill=\"#101418\" letter-spacing=\"-1\">O</text></svg>",
+	"Colors": {
+		"Primary": "#0F766E",
+		"Secondary": "#F59E0B",
+		"PrimaryLight": "#0F766E",
+		"PrimaryDark": "#4FB3A8",
+		"SecondaryLight": "#F59E0B",
+		"SecondaryDark": "#F59E0B"
+	}
+}

@@ -1,0 +1,76 @@
+{
+	"Generated": "2026-11-02T16:06:55.537Z",
+	"Mode": "module",
+	"GitHubOrg": "fable-retold",
+	"DefaultBranch": "master",
+	"Module": {
+		"Name": "orator-file-service",
+		"Repo": "orator-file-service",
+		"Group": "",
+		"Branch": "master",
+		"HasDocs": true,
+		"HasCover": true,
+		"Sidebar": [
+			{
+				"Title": "Getting Started",
+				"Children": [
+					{
+						"Title": "Overview",
+						"Path": "README.md"
+					},
+					{
+						"Title": "Configuration",
+						"Path": "configuration.md"
+					},
+					{
+						"Title": "Architecture",
+						"Path": "architecture.md"
+					}
+				]
+			},
+			{
+				"Title": "Retold Ecosystem",
+				"Children": [
+					{
+						"Title": "Pict",
+						"Path": "https://fable-retold.github.io/pict/README.md"
+					},
+					{
+						"Title": "Pict View",
+						"Path": "https://fable-retold.github.io/pict-view/README.md"
+					},
+					{
+						"Title": "Pict Provider",
+						"Path": "https://fable-retold.github.io/pict-provider/README.md"
+					},
+					{
+						"Title": "Pict Section Fileview",
+						"Path": "https://fable-retold.github.io/pict-section-fileview/README.md"
+					},
+					{
+						"Title": "Orator File Service",
+						"Path": "https://fable-retold.github.io/orator-file-service/README.md"
+					},
+					{
+						"Title": "Fable",
+						"Path": "https://fable-retold.github.io/fable/README.md"
+					}
+				]
+			}
+		],
+		"DocFiles": [
+			".nojekyll",
+			"README.md",
+			"_brand.json",
+			"_cover.md",
+			"_sidebar.md",
+			"_version.json",
+			"architecture.md",
+			"configuration.md",
+			"index.html",
+			"retold-catalog.json",
+			"retold-keyword-index.json"
+		]
+	},
+	"Groups": []
+}
