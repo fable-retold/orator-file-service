@@ -373,6 +373,34 @@ suite
 							});
 					}
 				);
+					test
+					(
+						'addTileRoute registers ONLY the tile route (no bytes route) and serves the descriptor',
+						function (fDone)
+						{
+							this.timeout(20000);
+							let tmpOK = _service.addTileRoute(
+								{
+									TileRoute: '/tilesonly/:id/Tiles/*',
+									Resolver: (pRequest, fCallback) => fCallback(null, { Allowed: true, AbsolutePath: _imagePath })
+								});
+							Expect(tmpOK).to.equal(true);
+							// The tile route is wired...
+							Expect(typeof _orator.serviceServer.handlers['/tilesonly/:id/Tiles/*']).to.equal('function');
+							// ...and no bytes route was registered alongside it.
+							Expect(_orator.serviceServer.handlers['/tilesonly/:id']).to.equal(undefined);
+							let tmpResponse = new CollectorResponse();
+							tmpResponse.on('finish', () =>
+							{
+								Expect(tmpResponse.statusCode).to.equal(200);
+								Expect(tmpResponse.body.toString('utf8')).to.contain('Width="1024"');
+								return fDone();
+							});
+							_orator.serviceServer.handlers['/tilesonly/:id/Tiles/*'](
+								{ method: 'GET', headers: {}, params: { id: '1', '*': 'image.dzi' } }, tmpResponse, () => {});
+						}
+					);
+
 			}
 		);
 
@@ -386,8 +414,11 @@ suite
 					'responds 501 when retold-sharp is absent',
 					(fDone) =>
 					{
-						// Force an unavailable tile service (no sharp binding).
-						_service._tileService = new libTileService({ Sharp: false });
+						// Force an unavailable tile service: inject a retold-sharp stub that reports itself unavailable, so the
+						// 501 gate is exercised deterministically. (Passing { Sharp: false } is NOT enough -- a falsy Sharp makes
+						// the constructor fall back to require('retold-sharp'), which succeeds on any machine where libvips IS
+						// installed, and the gate would never be reached.)
+						_service._tileService = new libTileService({ Sharp: { checkAvailable: () => ({ available: false }) } });
 						Expect(_service.tilesAvailable()).to.equal(false);
 						_service.addFileRoute(
 							{

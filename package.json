@@ -1,6 +1,6 @@
 {
   "name": "orator-file-service",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reusable Orator file service: HTTP Range byte serving with a host-supplied resolver seam, plus retold-sharp (libvips) image derivatives and Deep Zoom (DZI) tile pyramids.",
   "main": "source/Orator-File-Service.js",
   "files": [

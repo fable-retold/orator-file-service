@@ -159,17 +159,66 @@ class OratorFileService extends libFableServiceProviderBase
 		{
 			let tmpTileRoute = tmpOptions.TileRoute || (tmpOptions.Route.replace(/\/+$/, '') + '/Tiles/*');
 			tmpRecord.TileRoute = tmpTileRoute;
-			tmpOptions._TileMarker = this._tileMarkerFor(tmpTileRoute);
-
-			tmpServer.get(tmpTileRoute, (pRequest, pResponse, fNext) =>
-			{
-				return this._handleTileRequest(tmpOptions, pRequest, pResponse, fNext);
-			});
+			this._registerTileRoute(tmpOptions, tmpTileRoute);
 		}
 
 		this.routes.push(tmpRecord);
 		this.log.info(`OratorFileService mapped file route ${tmpOptions.Route}${tmpOptions.EnableTiles ? ' (+tiles)' : ''}`);
 		return true;
+	}
+
+	/**
+	 * Register ONLY a Deep Zoom (DZI) tile route -- for a host that already serves
+	 * the file bytes itself (its own download / Open route) and just wants this
+	 * service's libvips tile pyramids for enormous images. The Resolver is the
+	 * exact same tenancy seam addFileRoute uses: it maps the request to an
+	 * absolute source-image path (and an allow/deny decision).
+	 *
+	 * @param {Object} pRouteOptions
+	 * @param {string} pRouteOptions.TileRoute - The tile route pattern (restify splat, e.g. '/x/:id/Tiles/*').
+	 * @param {function} pRouteOptions.Resolver - Resolver(request, callback(err, { Allowed, AbsolutePath })).
+	 * @param {string} [pRouteOptions.Strategy='auto'] - 'prebake' | 'onthefly' | 'auto'.
+	 * @returns {boolean} true if registered.
+	 */
+	addTileRoute(pRouteOptions)
+	{
+		let tmpOptions = pRouteOptions || {};
+
+		if (!this.fable.Orator || !this.fable.Orator.serviceServer)
+		{
+			this.log.error('OratorFileService requires an Orator instance registered with Fable.');
+			return false;
+		}
+		if (typeof tmpOptions.Resolver !== 'function')
+		{
+			this.log.error('OratorFileService.addTileRoute requires a Resolver function.');
+			return false;
+		}
+		if (typeof tmpOptions.TileRoute !== 'string')
+		{
+			this.log.error('OratorFileService.addTileRoute requires a TileRoute string.');
+			return false;
+		}
+
+		tmpOptions.EnableTiles = true;
+		this._registerTileRoute(tmpOptions, tmpOptions.TileRoute);
+		this.routes.push({ TileRoute: tmpOptions.TileRoute, EnableTiles: true, TilesOnly: true });
+		this.log.info(`OratorFileService mapped tile-only route ${tmpOptions.TileRoute}`);
+		return true;
+	}
+
+	/**
+	 * Wire one tile route's GET handler on the Orator server. Shared by
+	 * addFileRoute (bytes + tiles) and addTileRoute (tiles only).
+	 */
+	_registerTileRoute(pRouteOptions, pTileRoute)
+	{
+		pRouteOptions._TileMarker = this._tileMarkerFor(pTileRoute);
+		this.fable.Orator.serviceServer.get(pTileRoute, (pRequest, pResponse, fNext) =>
+		{
+			return this._handleTileRequest(pRouteOptions, pRequest, pResponse, fNext);
+		});
+		return pTileRoute;
 	}
 
 	// -----------------------------------------------------------------
